@@ -27,19 +27,28 @@
 <body>
 <div class="left-menu">
     <div class="content-logo">
-        <img alt="AI Videos platform by BuildAR.in that creates videos in 40 Languages" title="platform by Emily van den Heever from the Noun Project" src="images/logo.png" height="32" />
+        <img alt="AI Videos platform by BuildAR.in that creates videos in 40 Languages" title="platform by Emily van den Heever from the Noun Project" src="images/logo.png" height="64" />
         <span>API Documentation</span>
     </div>
     <div class="content-menu">
         <ul>
             <li class="scroll-to-link active" data-target="get-started">
-                <a>GET STARTED</a>
+                <a href="#get-started">GET STARTED</a>
             </li>
-            <li class="scroll-to-link" data-target="get-characters">
-                <a>Get Characters</a>
+            <li class="scroll-to-link" action="get-api-access">
+                <a href="#get-api-access">Get API Access</a>
             </li>
-            <li class="scroll-to-link" data-target="errors">
-                <a>Errors</a>
+            <li class="scroll-to-link" data-target="get-available-voices">
+                <a href="#overview">Overview</a>
+            </li>
+            <li class="scroll-to-link" data-target="get-avialable-voices">
+                <a href="#get-avialable-voices">Get Available Voices</a>
+            </li>
+            <li class="scroll-to-link" data-target="generate-audio">
+                <a href="#generate-audio">Generate Audio</a>
+            </li>
+            <li class="scroll-to-link" data-target="generate-video">
+                <a href="#generate-video">Generate Video</a>
             </li>
         </ul>
     </div>
@@ -47,12 +56,12 @@
 <div class="content-page">
     <div class="content-code"></div>
     <div class="content">
-        <div class="overflow-hidden content-section" id="content-get-started">
+        <div class="overflow-hidden content-section" id="get-started">
             <h1 id="get-started">Get started</h1>
             <pre>
-    		API Endpoint
+        API Endpoint
 
-       		https://35.232.47.147:8001/
+          https://35.232.47.147:8001/
                 </pre>
             <p>
                 The BuildAR API provides programmatic access to create videos in 40+ Languages from just text. 
@@ -60,22 +69,22 @@
             </p>
             
         </div>
-        <div class="overflow-hidden content-section" id="content-get-started">
+        <div class="overflow-hidden content-section" id="get-api-access">
             <h1 id="get-started">Get API Access</h1>
             <pre>
-    		For API Key 
-    		Reach out to:
+        For API Key 
+        Reach out to:
 
-       		email : team@buildar.live
-       		call : +91-9646617007
+          email : team@buildar.live
+          call : +91-9646617007
                 </pre>
             <p>
                 To create BuildAR's AI videos, you need an <strong>API key</strong>. Please contact us at <a href="mailto:team@buildar.live">team@buildar.live</a> to get your own API key.<br/>
                 We have subscription plans based on the volume of videos you are looking to create.
             </p>
         </div>
-        <div class="overflow-hidden content-section" id="content-get-started">
-            <h1 id="get-started">Overview</h1>
+        <div class="overflow-hidden content-section" id="overview">
+            <h1 id="overview">Overview</h1>
             <pre>Your text script is first<br/> converted to audio file.<br/>This audio file is combined <br/>with a selected actor that creates<br/> the final video
                 </pre>
             <p>
@@ -84,7 +93,7 @@
             </p>
         </div>
         <div class="overflow-hidden content-section" id="content-get-characters">
-            <h2 id="get-characters">GET AUDIO</h2>
+            <h2 id="get-avialable-voices">GET AVAILABLE VOICES FOR AUDIO</h2>
             <pre><code class="bash">
 # Here is a curl example
 curl -X 'GET' \
@@ -93,76 +102,167 @@ curl -X 'GET' \
   -H 'Authorization: Bearer YOUR_API_KEY'
                 </code></pre>
             <p>
-                To get characters you need to make a POST call to the following url :<br>
+                We provide a large variety(40+) of voices both in languages and accents.To get list of all available voices you need to make a GET call to the following url :<br>
                 <code class="higlighted">http://35.232.47.147:8001/audio</code>
             </p>
             <br>
             <pre><code class="json">
 Result example :
+{
+  query:{}
+  result: =[
+  {
+    "Voice": "Indian English Female Voice 1",
+    "Gender": "Female"
+  },
+  {
+    "Voice": "Indian English Female Voice 2",
+    "Gender": "Female"
+  },
+  {
+    "Voice": "Indian English Male Voice 1",
+    "Gender": "Male"
+  },
+  {
+    "Voice": "Hindi Female Voice 1",
+    "Gender": "Female"
+  },
+  {
+    "Voice": "Hindi Female Voice 2",
+    "Gender": "Female"
+  }
+]
+}
 
+                </code></pre>
+            
+        </div>
+        <div class="overflow-hidden content-section" id="content-errors">
+            <h2 id="generate-audio">GENERATE AUDIO</h2>
+            <pre><code class="bash">
+# Here is a curl example
+curl -X 'POST' \
+  'http://35.232.47.147:8001/audio' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "speakerId": "Indian English Female Voice 1",
+  "textScript": "Hello, how are you?",
+  "speed": Speed between 0&1
+}'
+                </code></pre>
+            <p>
+                You can generate audio from any text script. <br/>
+                Select a single voice from the collection of available voices, and enter the text script <br/>
+                You can also control the speed of the audio.<br/>
+                Normal speed has value 1. We suggest increment or decrement by a step of .05 <br>
+                <code class="higlighted">http://35.232.47.147:8001/audio</code>
+            </p>
+            <br>
+            <pre><code class="json">
+Result example :
 {
   query:{
-    offset: 0,
-    limit: 50,
-    house: [
-      "Stark",
-      "Bolton"
-    ],
-  }
-  result: [
-    {
-      id: 1,
-      first_name: "Jon",
-      last_name: "Snow",
-      alive: true,
-      house: "Stark",
-      gender: "m",
-      age: 14,
-      location: "Winterfell"
-    },
-    {
-      id: 2,
-      first_name: "Eddard",
-      last_name: "Stark",
-      alive: false,
-      house: "Stark",
-      gender: "m",
-      age: 35,
-      location: 'Winterfell'
-    },
-    {
-      id: 3,
-      first_name: "Catelyn",
-      last_name: "Stark",
-      alive: false,
-      house: "Stark",
-      gender: "f",
-      age: 33,
-      location: "Winterfell"
-    },
-    {
-      id: 4,
-      first_name: "Roose",
-      last_name: "Bolton",
-      alive: false,
-      house: "Bolton",
-      gender: "m",
-      age: 40,
-      location: "Dreadfort"
-    },
-    {
-      id: 5,
-      first_name: "Ramsay",
-      last_name: "Snow",
-      alive: false,
-      house: "Bolton",
-      gender: "m",
-      age: 15,
-      location: "Dreadfort"
-    },
-  ]
+  "speakerId": "string",
+  "textScript": "string",
+  "speed": 0
 }
+  result: =[
+  {{
+  "audioUrl": "string"
+}
+]
+}
+
                 </code></pre>
+                <h4>QUERY PARAMETERS</h4>
+            <table>
+                <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>speakerId</td>
+                    <td>String</td>
+                    <td>Voice for the audio</td>
+                </tr>
+                <tr>
+                    <td>textScript</td>
+                    <td>String</td>
+                    <td>The text whose audio needs to be generated</td>
+                </tr>
+                <tr>
+                    <td>speed</td>
+                    <td>float</td>
+                    <td>
+                        to control the speed of the generated audio
+                    </td>
+                </tr>
+                
+                </tbody>
+            </table>
+        </div>
+         <div class="overflow-hidden content-section" id="generate-video">
+            <h2 id="generate-video">GENERATE VIDEO</h2>
+            <pre><code class="bash">
+# Here is a curl example
+curl -X 'POST' \
+  'http://35.232.47.147:8001/video' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "actorId": 0,
+  "audioUrl": "URL"
+}'
+
+                </code></pre>
+            <p>
+            	<style>
+            		figure{
+            			padding:1em;
+            		}
+            	</style>
+            	 BuildAR's AI videos need to inputs the face and audio url.
+
+                 A video can now be generated from the previously generated audio by choosing a actor :<br>
+
+                 We currently support 3 actors and these are :<br/>
+                 <div style="display: flex;">
+                 <figure><img src="https://buildar.in/actors/actor0.png"/><figcaption>actorId:0</figcaption></figure>
+                 <figure><img src="https://buildar.in/actors/actor1.jpeg"/><figcaption>actorId:1</figcaption></figure>
+                  <figure><img src="https://buildar.in/actors/actor2.jpeg"/><figcaption>actorId:2</figcaption></figure>
+
+             	</div>
+             	<p>More actors can be added on demand by contacting the team.
+                Please contact us at <a href="mailto:team@buildar.live">team@buildar.live</a> or call +91-9646617007 to get your new faces added.<br/>
+                If a unique 3D avatar or face is needed do let us know.
+            </p></p>
+                <code class="higlighted" style="margin: 4em;">http://35.232.47.147:8001/video</code>
+
+                
+            <br>
+            <pre><code class="json">
+Result example :
+{
+  query:{
+  "actorId": 0,
+  "audioUrl": "string"
+}
+  result: =[
+  {{
+  "videoUrl": "string"
+}
+]
+}
+
+                </code></pre>
+            <div style="padding-top: 2em;">
             <h4>QUERY PARAMETERS</h4>
             <table>
                 <thead>
@@ -174,90 +274,19 @@ Result example :
                 </thead>
                 <tbody>
                 <tr>
-                    <td>secret_key</td>
+                    <td>actorId</td>
+                    <td>int</td>
+                    <td>Select actor from the list of available actors</td>
+                </tr>
+                <tr>
+                    <td>audioUrl</td>
                     <td>String</td>
-                    <td>Your API key.</td>
+                    <td>Url of the audio generated from the script, or any audio url</td>
                 </tr>
-                <tr>
-                    <td>search</td>
-                    <td>String</td>
-                    <td>(optional) A search word to find character by name.</td>
-                </tr>
-                <tr>
-                    <td>house</td>
-                    <td>String</td>
-                    <td>
-                        (optional) a string array of houses:
-                    </td>
-                </tr>
-                <tr>
-                    <td>alive</td>
-                    <td>Boolean</td>
-                    <td>
-                        (optional) a boolean to filter alived characters
-                    </td>
-                </tr>
-                <tr>
-                    <td>gender</td>
-                    <td>String</td>
-                    <td>
-                        (optional) a string to filter character by gender:<br>
-                        m: male<br>
-                        f: female
-                    </td>
-                </tr>
-                <tr>
-                    <td>offset</td>
-                    <td>Integer</td>
-                    <td>(optional - default: 0) A cursor for use in pagination. Pagination starts offset the specified offset.</td>
-                </tr>
-                <tr>
-                    <td>limit</td>
-                    <td>Integer</td>
-                    <td>(optional - default: 10) A limit on the number of objects to be returned, between 1 and 100.</td>
-                </tr>
+                
                 </tbody>
             </table>
         </div>
-        <div class="overflow-hidden content-section" id="content-errors">
-            <h2 id="errors">Errors</h2>
-            <p>
-                The Westeros API uses the following error codes:
-            </p>
-            <table>
-                <thead>
-                <tr>
-                    <th>Error Code</th>
-                    <th>Meaning</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>X000</td>
-                    <td>
-                        Some parameters are missing. This error appears when you don't pass every mandatory parameters.
-                    </td>
-                </tr>
-                <tr>
-                    <td>X001</td>
-                    <td>
-                        Unknown or unvalid <code class="higlighted">secret_key</code>. This error appears if you use an unknow API key or if your API key expired.
-                    </td>
-                </tr>
-                <tr>
-                    <td>X002</td>
-                    <td>
-                        Unvalid <code class="higlighted">secret_key</code> for this domain. This error appears if you use an  API key non specified for your domain. Developper or Universal API keys doesn't have domain checker.
-                    </td>
-                </tr>
-                <tr>
-                    <td>X003</td>
-                    <td>
-                        Unknown or unvalid user <code class="higlighted">token</code>. This error appears if you use an unknow user <code class="higlighted">token</code> or if the user <code class="higlighted">token</code> expired.
-                    </td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
     <div class="content-code"></div>
